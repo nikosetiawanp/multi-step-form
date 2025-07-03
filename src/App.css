@@ -47,6 +47,7 @@
 }
 
 @layer components {
+  /* Texts */
   .text-preset-1 {
     font-weight: 700;
     font-size: 32px;
@@ -59,7 +60,10 @@
     line-height: 120%;
     letter-spacing: 0px;
   }
-  .text-preset-3-medium {
+  .text-preset-3-medium,
+  .button-primary,
+  .button-secondary,
+  .button-additional {
     font-weight: 500;
     font-size: 16px;
     line-height: 120%;
@@ -94,5 +98,36 @@
     font-size: 12px;
     line-height: 120%;
     letter-spacing: 0px;
+  }
+
+  /* Buttons */
+  .button-primary,
+  .button-secondary {
+    padding: 16px 24px;
+    color: white;
+    border-radius: 8px;
+  }
+  .button-primary:hover,
+  .button-secondary:hover {
+    cursor: pointer;
+  }
+  .button-primary {
+    background-color: var(--color-blue-950);
+  }
+  .button-primary:active {
+    background-color: var(--color-blue-700);
+  }
+  .button-secondary {
+    background-color: var(--color-purple-600);
+  }
+  .button-secondary:active {
+    background-color: var(--color-purple-400);
+  }
+  .button-additional {
+    padding: 10px;
+    color: var(--color-grey-500);
+  }
+  .button-additional:active {
+    color: var(--color-blue-950);
   }
 }
