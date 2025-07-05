@@ -5,8 +5,19 @@ import ProgressSidebar from "./components/ProgressSidebar";
 import SelectPlan from "./components/SelectPlan";
 import Navigation from "./components/Navigation";
 import SelectAddons from "./components/SelectAddons";
+import PersonalInfoForm from "./components/PersonalInfoForm";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import type { PersonalInfo } from "./types/personalInfo";
 
 function App() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<PersonalInfo>();
+  const onSubmit: SubmitHandler<PersonalInfo> = (data) => console.log(data);
+
   const [currentStep, setCurrentStep] = useState(1);
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
     "monthly"
@@ -20,7 +31,7 @@ function App() {
         {/* Section Contianer */}
         <div className="w-full flex flex-col items-center md:py-8">
           {currentStep == 1 ? (
-            ""
+            <PersonalInfoForm register={register} errors={errors} />
           ) : currentStep == 2 ? (
             <SelectPlan
               billingCycle={billingCycle}

@@ -1,4 +1,3 @@
-import BackgroundSidebarMobile from "../assets/images/bg-sidebar-mobile.svg";
 import { steps } from "../data/steps";
 import StepNumber from "./StepNumber";
 
