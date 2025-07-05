@@ -1,13 +1,19 @@
-import { useState } from "react";
 import "./App.css";
+import { useState } from "react";
+import { useForm, type SubmitHandler } from "react-hook-form";
+
 import StepIndicator from "./components/StepIndicator";
 import ProgressSidebar from "./components/ProgressSidebar";
-import SelectPlan from "./components/SelectPlan";
 import Navigation from "./components/Navigation";
-import SelectAddons from "./components/SelectAddons";
+
 import PersonalInfoForm from "./components/PersonalInfoForm";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import SelectPlan from "./components/SelectPlan";
+import SelectAddons from "./components/SelectAddons";
+import ThankYou from "./components/Thankyou";
+
 import type { PersonalInfo } from "./types/personalInfo";
+import type { Plan } from "./types/plan";
+import Summary from "./components/Summary";
 
 function App() {
   const {
@@ -16,9 +22,11 @@ function App() {
     watch,
     formState: { errors },
   } = useForm<PersonalInfo>();
-  const onSubmit: SubmitHandler<PersonalInfo> = (data) => console.log(data);
-
+  const submitPersonalInfo: SubmitHandler<PersonalInfo> = (data) =>
+    console.log(data);
   const [currentStep, setCurrentStep] = useState(1);
+
+  const [selectedPlan, setSelectedPlan] = useState<Plan>();
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
     "monthly"
   );
@@ -31,34 +39,55 @@ function App() {
         {/* Section Contianer */}
         <div className="w-full flex flex-col items-center md:py-8">
           {currentStep == 1 ? (
-            <PersonalInfoForm register={register} errors={errors} />
+            <PersonalInfoForm
+              register={register}
+              errors={errors}
+              handleSubmit={handleSubmit}
+              currentStep={currentStep}
+              setCurrentStep={setCurrentStep}
+              submitPersonalInfo={submitPersonalInfo}
+            />
           ) : currentStep == 2 ? (
             <SelectPlan
               billingCycle={billingCycle}
               setBillingCycle={setBillingCycle}
+              selectedPlan={selectedPlan}
+              setSelectedPlan={setSelectedPlan}
             />
           ) : currentStep == 3 ? (
             <SelectAddons
               billingCycle={billingCycle}
               setBillingCycle={setBillingCycle}
             />
+          ) : currentStep == 4 ? (
+            <Summary
+              billingCycle={billingCycle}
+              setBillingCycle={setBillingCycle}
+            />
           ) : (
-            ""
+            <ThankYou />
           )}
 
           {/* Navigation tablet & desktop */}
-          <div className="hidden md:block mt-auto w-full md:max-w-[350px] lg:max-w-[450px]">
-            <Navigation
-              currentStep={currentStep}
-              setCurrentStep={setCurrentStep}
-            />
-          </div>
+          {currentStep <= 4 && (
+            <div className="hidden md:block mt-auto w-full md:max-w-[350px] lg:max-w-[450px]">
+              <Navigation
+                currentStep={currentStep}
+                setCurrentStep={setCurrentStep}
+              />
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="md:hidden flex items-center bg-white h-fit w-screen p-4 absolute bottom-0 left-0">
-        <Navigation currentStep={currentStep} setCurrentStep={setCurrentStep} />
-      </div>
+      {currentStep <= 4 && (
+        <div className="md:hidden flex items-center justify-center bg-white h-fit w-screen p-4 absolute bottom-0 left-0">
+          <Navigation
+            currentStep={currentStep}
+            setCurrentStep={setCurrentStep}
+          />
+        </div>
+      )}
     </>
   );
 }

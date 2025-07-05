@@ -14,7 +14,7 @@ export default function ProgressSidebar(props: { currentStep: number }) {
         />
         <div className="flex flex-col gap-8 z-10 px-6 py-10 absolute w-full">
           {steps.map((step: Step) => (
-            <div className="flex gap-4 items-center">
+            <div key={step.number} className="flex gap-4 items-center">
               <StepNumber
                 number={step.number}
                 currentStep={props.currentStep}

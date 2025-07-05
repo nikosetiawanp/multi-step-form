@@ -3,7 +3,7 @@ export default function Navigation(props: {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const next = () => {
-    if (props.currentStep >= 4) {
+    if (props.currentStep >= 5) {
       return;
     } else {
       props.setCurrentStep(props.currentStep + 1);
@@ -17,7 +17,7 @@ export default function Navigation(props: {
     }
   };
   return (
-    <div className="flex w-full justify-between items-center">
+    <div className="flex w-full justify-between items-center max-w-[345px] md:max-w-[450px]">
       {props.currentStep >= 2 ? (
         <button className="button-additional" onClick={() => previous()}>
           Go back
@@ -25,9 +25,15 @@ export default function Navigation(props: {
       ) : (
         ""
       )}
-      <button className="button-primary ml-auto" onClick={() => next()}>
-        Next Step
-      </button>
+      {props.currentStep == 4 ? (
+        <button className="button-secondary ml-auto" onClick={() => next()}>
+          Confirm
+        </button>
+      ) : (
+        <button className="button-primary ml-auto" onClick={() => next()}>
+          Next Step
+        </button>
+      )}
     </div>
   );
 }

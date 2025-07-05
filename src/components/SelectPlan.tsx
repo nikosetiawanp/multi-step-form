@@ -1,8 +1,11 @@
 import { plans } from "../data/plans";
+import type { Plan } from "../types/plan";
 
 export default function SelectPlan(props: {
   billingCycle: "monthly" | "yearly";
   setBillingCycle: React.Dispatch<React.SetStateAction<"monthly" | "yearly">>;
+  selectedPlan: Plan | undefined;
+  setSelectedPlan: React.Dispatch<React.SetStateAction<Plan | undefined>>;
 }) {
   const toggleBillingCycle = () => {
     if (props.billingCycle == "monthly") {
@@ -25,7 +28,8 @@ export default function SelectPlan(props: {
           // Card
           <div
             key={index}
-            className="flex lg:flex-col justify-start items-center lg:items-start lg:justify-between p-4 gap-2 h-[80px] lg:h-[160px] w-full lg:max-w-[140px] border border-purple-200 rounded-lg hover:cursor-pointer hover:bg-blue-50 hover:border-purple-600"
+            className={`${props.selectedPlan?.id == plan.id ? "bg-blue-50 border-purple-600" : "bg-white border-purple-200"} flex lg:flex-col justify-start items-center lg:items-start lg:justify-between p-4 gap-2 h-[80px] lg:h-[160px] w-full lg:max-w-[140px] border rounded-lg hover:cursor-pointer hover:bg-blue-50 hover:border-purple-600`}
+            onClick={() => props.setSelectedPlan(plan)}
           >
             <img
               className="w-[40px] h-[40px]"
