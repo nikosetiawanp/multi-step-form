@@ -9,11 +9,12 @@ import Navigation from "./components/Navigation";
 import PersonalInfoForm from "./components/PersonalInfoForm";
 import SelectPlan from "./components/SelectPlan";
 import SelectAddons from "./components/SelectAddons";
+import Summary from "./components/Summary";
 import ThankYou from "./components/Thankyou";
 
+import type { Addon } from "./types/addon";
 import type { PersonalInfo } from "./types/personalInfo";
 import type { Plan } from "./types/plan";
-import Summary from "./components/Summary";
 
 function App() {
   const {
@@ -26,10 +27,11 @@ function App() {
     console.log(data);
   const [currentStep, setCurrentStep] = useState(1);
 
-  const [selectedPlan, setSelectedPlan] = useState<Plan>();
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
     "monthly"
   );
+  const [selectedPlan, setSelectedPlan] = useState<Plan>();
+  const [selectedAddons, setSelectedAddons] = useState<Addon[]>([]);
   return (
     <>
       <StepIndicator currentStep={currentStep} />
@@ -58,6 +60,8 @@ function App() {
             <SelectAddons
               billingCycle={billingCycle}
               setBillingCycle={setBillingCycle}
+              selectedAddons={selectedAddons}
+              setSelectedAddons={setSelectedAddons}
             />
           ) : currentStep == 4 ? (
             <Summary
