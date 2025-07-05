@@ -4,8 +4,7 @@ import StepIndicator from "./components/StepIndicator";
 import ProgressSidebar from "./components/ProgressSidebar";
 import SelectPlan from "./components/SelectPlan";
 import Navigation from "./components/Navigation";
-
-import { plans } from "./data/plans";
+import SelectAddons from "./components/SelectAddons";
 
 function App() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -20,11 +19,22 @@ function App() {
         <ProgressSidebar currentStep={currentStep} />
         {/* Section Contianer */}
         <div className="w-full flex flex-col items-center md:py-8">
-          <SelectPlan
-            plans={plans}
-            billingCycle={billingCycle}
-            setBillingCycle={setBillingCycle}
-          />
+          {currentStep == 1 ? (
+            ""
+          ) : currentStep == 2 ? (
+            <SelectPlan
+              billingCycle={billingCycle}
+              setBillingCycle={setBillingCycle}
+            />
+          ) : currentStep == 3 ? (
+            <SelectAddons
+              billingCycle={billingCycle}
+              setBillingCycle={setBillingCycle}
+            />
+          ) : (
+            ""
+          )}
+
           {/* Navigation tablet & desktop */}
           <div className="hidden md:block mt-auto w-full md:max-w-[350px] lg:max-w-[450px]">
             <Navigation

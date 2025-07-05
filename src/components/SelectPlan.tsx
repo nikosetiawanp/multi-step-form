@@ -1,7 +1,6 @@
-import type { Plan } from "../types/plan";
+import { plans } from "../data/plans";
 
 export default function SelectPlan(props: {
-  plans: Plan[];
   billingCycle: "monthly" | "yearly";
   setBillingCycle: React.Dispatch<React.SetStateAction<"monthly" | "yearly">>;
 }) {
@@ -14,7 +13,7 @@ export default function SelectPlan(props: {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full md:max-w-[350px] lg:max-w-[450px] md:">
+    <div className="flex flex-col gap-6 w-full md:max-w-[350px] lg:max-w-[450px]">
       <div className="flex flex-col gap-2">
         <h2 className="text-preset-1 text-blue-950">Select Your Plan</h2>
         <p className="text-preset-3-regular text-grey-500">
@@ -22,7 +21,7 @@ export default function SelectPlan(props: {
         </p>
       </div>
       <div className="flex flex-col gap-2 lg:gap-4 lg:flex-row">
-        {props.plans.map((plan, index) => (
+        {plans.map((plan, index) => (
           // Card
           <div
             key={index}
@@ -39,8 +38,8 @@ export default function SelectPlan(props: {
               </span>
               <span className="text-preset-4-regular text-grey-500">
                 {props.billingCycle == "monthly"
-                  ? `$${plan.price.monthly}/mo`
-                  : `$${plan.price.yearly}/yr`}
+                  ? plan.price.monthly + "/mo"
+                  : plan.price.yearly + "/yr"}
               </span>
 
               {/* 2 months free */}
