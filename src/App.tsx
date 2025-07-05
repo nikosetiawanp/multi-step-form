@@ -26,7 +26,6 @@ function App() {
   const submitPersonalInfo: SubmitHandler<PersonalInfo> = (data) =>
     console.log(data);
   const [currentStep, setCurrentStep] = useState(1);
-
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
     "monthly"
   );
@@ -67,6 +66,8 @@ function App() {
             <Summary
               billingCycle={billingCycle}
               setBillingCycle={setBillingCycle}
+              selectedPlan={selectedPlan}
+              selectedAddons={selectedAddons}
             />
           ) : (
             <ThankYou />
