@@ -1,7 +1,8 @@
 import BackgroundSidebarMobile from "../assets/images/bg-sidebar-mobile.svg";
+import { steps } from "../data/steps";
 import StepNumber from "./StepNumber";
 
-export default function StepIndicator(props: { step: number }) {
+export default function StepIndicator(props: { currentStep: number }) {
   return (
     <div className="absolute md:hidden w-full top-0 left-0 -z-50">
       <img
@@ -10,8 +11,12 @@ export default function StepIndicator(props: { step: number }) {
         alt="bg-sidebar-mobile"
       />
       <div className="flex justify-center absolute z-10 top-10 gap-4 w-full">
-        {Array.from({ length: 4 }).map((_, index) => (
-          <StepNumber key={index + 1} number={index + 1} step={props.step} />
+        {steps.map((step) => (
+          <StepNumber
+            key={step.number}
+            number={step.number}
+            currentStep={props.currentStep}
+          />
         ))}
       </div>
     </div>

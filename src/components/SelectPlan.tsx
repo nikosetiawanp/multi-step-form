@@ -1,23 +1,15 @@
-import IconArcade from "../assets/images/icon-arcade.svg";
-import IconAdvanced from "../assets/images/icon-advanced.svg";
-import IconPro from "../assets/images/icon-pro.svg";
-import { useState } from "react";
+import type { Plan } from "../types/plan";
 
-export default function SelectPlan() {
-  const plans = [
-    { name: "Arcade", price: 9, icon: IconArcade },
-    { name: "Advanced", price: 12, icon: IconAdvanced },
-    { name: "Pro", price: 15, icon: IconPro },
-  ];
-
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
-    "monthly"
-  );
+export default function SelectPlan(props: {
+  plans: Plan[];
+  billingCycle: "monthly" | "yearly";
+  setBillingCycle: React.Dispatch<React.SetStateAction<"monthly" | "yearly">>;
+}) {
   const toggleBillingCycle = () => {
-    if (billingCycle == "monthly") {
-      setBillingCycle("yearly");
+    if (props.billingCycle == "monthly") {
+      props.setBillingCycle("yearly");
     } else {
-      setBillingCycle("monthly");
+      props.setBillingCycle("monthly");
     }
   };
 
@@ -30,7 +22,7 @@ export default function SelectPlan() {
         </p>
       </div>
       <div className="flex flex-col gap-2 lg:gap-4 lg:flex-row">
-        {plans.map((plan, index) => (
+        {props.plans.map((plan, index) => (
           // Card
           <div
             key={index}
@@ -46,13 +38,13 @@ export default function SelectPlan() {
                 {plan.name}
               </span>
               <span className="text-preset-4-regular text-grey-500">
-                {billingCycle == "monthly"
-                  ? `$${plan.price}/mo`
-                  : `$${plan.price * 10}/yr`}
+                {props.billingCycle == "monthly"
+                  ? `$${plan.price.monthly}/mo`
+                  : `$${plan.price.yearly}/yr`}
               </span>
 
               {/* 2 months free */}
-              {billingCycle == "yearly" ? (
+              {props.billingCycle == "yearly" ? (
                 <span className="text-preset-5 text-blue-950 mt-1 md:hidden lg:block">
                   2 months free
                 </span>
@@ -62,7 +54,7 @@ export default function SelectPlan() {
             </div>
 
             {/* 2 months free */}
-            {billingCycle == "yearly" ? (
+            {props.billingCycle == "yearly" ? (
               <span className="text-preset-5 text-blue-950 ml-auto hidden md:block lg:hidden">
                 2 months free
               </span>
@@ -76,18 +68,18 @@ export default function SelectPlan() {
       {/* Toggle */}
       <div className="flex justify-center items-center bg-blue-50 rounded-lg w-full min-h-[50px] gap-8">
         <span
-          className={`${billingCycle == "monthly" ? "text-blue-950" : "text-grey-500"} text-preset-4-medium lg:font-bold`}
+          className={`${props.billingCycle == "monthly" ? "text-blue-950" : "text-grey-500"} text-preset-4-medium lg:font-bold`}
         >
           Monthly
         </span>
         <div
-          className={`${billingCycle == "monthly" ? "justify-start" : "justify-end"} flex p-1 bg-blue-950 rounded-full w-[40px] transition-all duration-300 cursor-pointer active:bg-blue-700`}
+          className={`${props.billingCycle == "monthly" ? "justify-start" : "justify-end"} flex p-1 bg-blue-950 rounded-full w-[40px] transition-all duration-300 cursor-pointer active:bg-blue-700`}
           onClick={() => toggleBillingCycle()}
         >
           <div className="bg-white w-[12px] h-[12px] rounded-full"></div>
         </div>
         <span
-          className={`${billingCycle == "yearly" ? "text-blue-950" : "text-grey-500"} text-preset-4-medium lg:font-bold`}
+          className={`${props.billingCycle == "yearly" ? "text-blue-950" : "text-grey-500"} text-preset-4-medium lg:font-bold`}
         >
           Yearly
         </span>
