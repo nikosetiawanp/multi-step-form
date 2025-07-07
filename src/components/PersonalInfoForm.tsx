@@ -10,13 +10,15 @@ import type { PersonalInfo } from "../types/personalInfo";
 export default function PersonalInfoForm(props: {
   register: UseFormRegister<PersonalInfo>;
   errors: FieldErrors<PersonalInfo>;
-  handleSubmit: UseFormHandleSubmit<PersonalInfo, PersonalInfo>;
   currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+  handleSubmit: UseFormHandleSubmit<PersonalInfo>;
   submitPersonalInfo: SubmitHandler<PersonalInfo>;
 }) {
   return (
-    <form onSubmit={props.handleSubmit(props.submitPersonalInfo)}>
+    <form
+    // onSubmit={props.handleSubmit(props.submitPersonalInfo)}
+    >
       <div className="flex flex-col gap-6 w-full md:max-w-[350px] lg:max-w-[450px]">
         <StepHeader
           title="Personal info"
@@ -93,10 +95,6 @@ export default function PersonalInfoForm(props: {
             className={`${props.errors.phone && "border-red-500"} h-[40px] md:h-[48px] px-4 py-2 rounded-sm md:rounded-lg border text-preset-4 font-medium md:text-preset-3-medium text-blue-950 border-purple-200 hover:cursor-pointer hover:border-purple-600 active:border-purple-600 placeholder:text-preset-3-regular placeholder:text-grey-500`}
           />
         </div>
-
-        <button type="submit" className="button-primary">
-          Submit
-        </button>
       </div>
     </form>
   );

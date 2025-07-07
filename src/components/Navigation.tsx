@@ -1,20 +1,27 @@
-import type { SubmitHandler } from "react-hook-form";
+import type {
+  FieldErrors,
+  SubmitHandler,
+  UseFormHandleSubmit,
+} from "react-hook-form";
 import type { PersonalInfo } from "../types/personalInfo";
 
 export default function Navigation(props: {
   currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+  errors: FieldErrors<PersonalInfo>;
+  handleSubmit: UseFormHandleSubmit<PersonalInfo>;
   submitPersonalInfo: SubmitHandler<PersonalInfo>;
 }) {
   const next = () => {
     if (props.currentStep >= 5) {
       return;
     } else if (props.currentStep == 1) {
-      props.setCurrentStep(props.currentStep + 1);
+      props.handleSubmit(props.submitPersonalInfo)();
     } else {
       props.setCurrentStep(props.currentStep + 1);
     }
   };
+
   const previous = () => {
     if (props.currentStep <= 1) {
       return;

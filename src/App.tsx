@@ -30,8 +30,8 @@ function App() {
   } = useForm<PersonalInfo>({
     resolver: zodResolver(PersonalInfoSchema),
   });
-  const submitPersonalInfo: SubmitHandler<PersonalInfo> = (data) =>
-    alert(JSON.stringify(data));
+  const submitPersonalInfo: SubmitHandler<PersonalInfo> = () =>
+    setCurrentStep(currentStep + 1);
 
   const [currentStep, setCurrentStep] = useState(1);
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
@@ -89,6 +89,8 @@ function App() {
               <Navigation
                 currentStep={currentStep}
                 setCurrentStep={setCurrentStep}
+                errors={errors}
+                handleSubmit={handleSubmit}
                 submitPersonalInfo={submitPersonalInfo}
               />
             </div>
@@ -101,6 +103,8 @@ function App() {
           <Navigation
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            errors={errors}
+            handleSubmit={handleSubmit}
             submitPersonalInfo={submitPersonalInfo}
           />
         </div>
