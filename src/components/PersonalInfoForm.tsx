@@ -1,5 +1,4 @@
 import {
-  useForm,
   type FieldErrors,
   type SubmitHandler,
   type UseFormHandleSubmit,
@@ -7,8 +6,6 @@ import {
 } from "react-hook-form";
 import StepHeader from "./StepHeader";
 import type { PersonalInfo } from "../types/personalInfo";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { PersonalInfoSchema } from "../schemas/personalInfoSchema";
 
 export default function PersonalInfoForm(props: {
   register: UseFormRegister<PersonalInfo>;
@@ -18,18 +15,8 @@ export default function PersonalInfoForm(props: {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   submitPersonalInfo: SubmitHandler<PersonalInfo>;
 }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<PersonalInfo>({
-    resolver: zodResolver(PersonalInfoSchema),
-  });
-  const submitPersonalInfo: SubmitHandler<PersonalInfo> = (data) =>
-    alert(JSON.stringify(data));
-
   return (
-    <form onSubmit={handleSubmit(submitPersonalInfo)}>
+    <form onSubmit={props.handleSubmit(props.submitPersonalInfo)}>
       <div className="flex flex-col gap-6 w-full md:max-w-[350px] lg:max-w-[450px]">
         <StepHeader
           title="Personal info"
@@ -44,18 +31,18 @@ export default function PersonalInfoForm(props: {
             >
               Name
             </label>
-            {errors.name && (
+            {props.errors.name && (
               <span className="text-preset-5 font-bold md:text-preset-4-bold text-red-500">
-                {errors.name?.message}
+                {props.errors.name?.message}
               </span>
             )}
           </div>
           <input
             type="text"
             defaultValue=""
-            {...register("name")}
+            {...props.register("name")}
             placeholder="e.g. Stephen King"
-            className={`${errors?.name && "border-red-500"} h-[40px] md:h-[48px] px-4 py-2 rounded-sm md:rounded-lg border text-preset-4 font-medium md:text-preset-3-medium text-blue-950 border-purple-200 hover:cursor-pointer hover:border-purple-600 active:border-purple-600 placeholder:text-preset-3-regular placeholder:text-grey-500`}
+            className={`${props.errors.name && "border-red-500"} h-[40px] md:h-[48px] px-4 py-2 rounded-sm md:rounded-lg border text-preset-4 font-medium md:text-preset-3-medium text-blue-950 border-purple-200 hover:cursor-pointer hover:border-purple-600 active:border-purple-600 placeholder:text-preset-3-regular placeholder:text-grey-500`}
           />
         </div>
 
@@ -68,18 +55,18 @@ export default function PersonalInfoForm(props: {
             >
               Email Address
             </label>
-            {errors.email && (
+            {props.errors.email && (
               <span className="text-preset-5 font-bold md:text-preset-4-bold text-red-500">
-                {errors.email?.message}
+                {props.errors.email?.message}
               </span>
             )}
           </div>
           <input
             type="email"
             defaultValue=""
-            {...register("email")}
+            {...props.register("email")}
             placeholder="e.g. stephenking@lorem.com"
-            className={`${errors.email && "border-red-500"} h-[40px] md:h-[48px] px-4 py-2 rounded-sm md:rounded-lg border text-preset-4 font-medium md:text-preset-3-medium text-blue-950 border-purple-200 hover:cursor-pointer hover:border-purple-600 active:border-purple-600 placeholder:text-preset-3-regular placeholder:text-grey-500`}
+            className={`${props.errors.email && "border-red-500"} h-[40px] md:h-[48px] px-4 py-2 rounded-sm md:rounded-lg border text-preset-4 font-medium md:text-preset-3-medium text-blue-950 border-purple-200 hover:cursor-pointer hover:border-purple-600 active:border-purple-600 placeholder:text-preset-3-regular placeholder:text-grey-500`}
           />
         </div>
 
@@ -92,18 +79,18 @@ export default function PersonalInfoForm(props: {
             >
               Phone Number
             </label>
-            {errors.phone && (
+            {props.errors.phone && (
               <span className="text-preset-5 font-bold md:text-preset-4-bold text-red-500">
-                {errors.phone?.message}
+                {props.errors.phone?.message}
               </span>
             )}
           </div>
           <input
             type="tel"
             defaultValue=""
-            {...register("phone")}
+            {...props.register("phone")}
             placeholder="e.g. +1 234 567 890"
-            className={`${errors.phone && "border-red-500"} h-[40px] md:h-[48px] px-4 py-2 rounded-sm md:rounded-lg border text-preset-4 font-medium md:text-preset-3-medium text-blue-950 border-purple-200 hover:cursor-pointer hover:border-purple-600 active:border-purple-600 placeholder:text-preset-3-regular placeholder:text-grey-500`}
+            className={`${props.errors.phone && "border-red-500"} h-[40px] md:h-[48px] px-4 py-2 rounded-sm md:rounded-lg border text-preset-4 font-medium md:text-preset-3-medium text-blue-950 border-purple-200 hover:cursor-pointer hover:border-purple-600 active:border-purple-600 placeholder:text-preset-3-regular placeholder:text-grey-500`}
           />
         </div>
 
