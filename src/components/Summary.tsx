@@ -7,6 +7,7 @@ export default function Summary(props: {
   setBillingCycle: React.Dispatch<React.SetStateAction<"monthly" | "yearly">>;
   selectedPlan: Plan | undefined;
   selectedAddons: Addon[];
+  currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const totalMonthly =
@@ -37,7 +38,7 @@ export default function Summary(props: {
                 {props.billingCycle == "monthly" ? "(Monthly)" : "(Yearly)"}
               </span>
               <button
-                onClick={() => props.setCurrentStep(2)}
+                onClick={() => props.setCurrentStep(props.currentStep - 2)}
                 className="text-preset-4-regular text-grey-500 hover:text-purple-600 hover:cursor-pointer"
               >
                 Change
@@ -50,7 +51,10 @@ export default function Summary(props: {
                 : `${props.selectedPlan?.price.yearly}/yr`}
             </span>
           </div>
-          <hr className="h-0.25 border-grey-500/20" />
+          {props.selectedAddons.length > 0 && (
+            <hr className="h-0.25 border-grey-500/20" />
+          )}
+
           {/* Addons */}
           {props.selectedAddons.map((addon: Addon) => (
             <div className="flex justify-between">

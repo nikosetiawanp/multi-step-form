@@ -5,7 +5,7 @@ export default function SelectPlan(props: {
   billingCycle: "monthly" | "yearly";
   setBillingCycle: React.Dispatch<React.SetStateAction<"monthly" | "yearly">>;
   selectedPlan: Plan | undefined;
-  setSelectedPlan: React.Dispatch<React.SetStateAction<Plan | undefined>>;
+  setSelectedPlan: React.Dispatch<React.SetStateAction<Plan>>;
 }) {
   const toggleBillingCycle = () => {
     if (props.billingCycle == "monthly") {

@@ -12,6 +12,7 @@ import SelectAddons from "./components/SelectAddons";
 import Summary from "./components/Summary";
 import ThankYou from "./components/Thankyou";
 
+import { plans } from "./data/plans";
 import type { Addon } from "./types/addon";
 import type { PersonalInfo } from "./types/personalInfo";
 import type { Plan } from "./types/plan";
@@ -29,7 +30,7 @@ function App() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
     "monthly"
   );
-  const [selectedPlan, setSelectedPlan] = useState<Plan>();
+  const [selectedPlan, setSelectedPlan] = useState<Plan>(plans[0]);
   const [selectedAddons, setSelectedAddons] = useState<Addon[]>([]);
   return (
     <>
@@ -68,6 +69,8 @@ function App() {
               setBillingCycle={setBillingCycle}
               selectedPlan={selectedPlan}
               selectedAddons={selectedAddons}
+              currentStep={currentStep}
+              setCurrentStep={setCurrentStep}
             />
           ) : (
             <ThankYou />
