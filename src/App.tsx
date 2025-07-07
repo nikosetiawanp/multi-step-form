@@ -17,15 +17,22 @@ import type { Addon } from "./types/addon";
 import type { PersonalInfo } from "./types/personalInfo";
 import type { Plan } from "./types/plan";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { PersonalInfoSchema } from "./schemas/personalInfoSchema";
+
 function App() {
+  // Forms
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm<PersonalInfo>();
+  } = useForm<PersonalInfo>({
+    resolver: zodResolver(PersonalInfoSchema),
+  });
   const submitPersonalInfo: SubmitHandler<PersonalInfo> = (data) =>
-    console.log(data);
+    alert(JSON.stringify(data));
+
   const [currentStep, setCurrentStep] = useState(1);
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
     "monthly"
@@ -82,6 +89,7 @@ function App() {
               <Navigation
                 currentStep={currentStep}
                 setCurrentStep={setCurrentStep}
+                submitPersonalInfo={submitPersonalInfo}
               />
             </div>
           )}
@@ -93,6 +101,7 @@ function App() {
           <Navigation
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            submitPersonalInfo={submitPersonalInfo}
           />
         </div>
       )}
