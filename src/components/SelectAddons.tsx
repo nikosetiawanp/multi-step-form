@@ -53,7 +53,7 @@ export default function SelectAddons(props: {
                 </span>
               </div>
               {/* Price */}
-              <span className="text-preset-5 text-purple-600 ml-auto">
+              <span className="text-preset-5 md:text-[14px] text-purple-600 ml-auto">
                 +$
                 {props.billingCycle == "monthly"
                   ? addon.price.monthly + "/mo"
