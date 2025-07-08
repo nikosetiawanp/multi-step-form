@@ -45,10 +45,10 @@ export default function SelectAddons(props: {
               </div>
               {/* Name and description */}
               <div className="flex flex-col gap-0 md:gap-2">
-                <span className="text-preset-4-medium md:text-preset-3-medium text-blue-950">
+                <span className="text-preset-4-medium md:text-[16px] text-blue-950">
                   {addon.name}
                 </span>
-                <span className="text-preset-5 md:text-preset-4-regular text-grey-500">
+                <span className="text-preset-5 md:text-[14px] text-grey-500">
                   {addon.description}
                 </span>
               </div>

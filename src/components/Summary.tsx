@@ -56,19 +56,21 @@ export default function Summary(props: {
           )}
 
           {/* Addons */}
-          {props.selectedAddons.map((addon: Addon) => (
-            <div className="flex justify-between">
-              <span className="text-preset-4-regular text-grey-500">
-                {addon.name}
-              </span>
-              <span className="text-preset-4-regular text-blue-950">
-                +$
-                {props.billingCycle == "monthly"
-                  ? `${addon.price.monthly}/mo`
-                  : `${addon.price.yearly}/yr`}
-              </span>
-            </div>
-          ))}
+          {props.selectedAddons
+            .sort((a, b) => a.id - b.id)
+            .map((addon: Addon) => (
+              <div key={addon.id} className="flex justify-between">
+                <span className="text-preset-4-regular text-grey-500">
+                  {addon.name}
+                </span>
+                <span className="text-preset-4-regular text-blue-950">
+                  +$
+                  {props.billingCycle == "monthly"
+                    ? `${addon.price.monthly}/mo`
+                    : `${addon.price.yearly}/yr`}
+                </span>
+              </div>
+            ))}
         </div>
         {/* Totals */}
         <div className="flex justify-between items-center px-4">
